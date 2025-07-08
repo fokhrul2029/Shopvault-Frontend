@@ -3,6 +3,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../components/ProductCard";
 import Pending from "../../../components/Pending";
+import { addToCart } from "../../../utilities/cartUtils";
 
 const Product: React.FC = () => {
   const axiosPublic = useAxiosPublic();
@@ -14,6 +15,11 @@ const Product: React.FC = () => {
       return res.data.data;
     },
   });
+
+  const handleProduct = (id: string) => {
+    const result = addToCart(`${id}`);
+    console.log(result.message);
+  };
 
   return (
     <div>
@@ -29,7 +35,7 @@ const Product: React.FC = () => {
               <ProductCard
                 key={product._id}
                 product={product}
-                onAddToCart={(id) => console.log("Added product:", id)}
+                onAddToCart={(id) => handleProduct(id)}
               />
             ))}
         </div>
