@@ -2,6 +2,7 @@ import React from "react";
 import { BsInstagram, BsTwitter, BsYoutube } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import SocialIcon from "./components/SocialIcon";
+import { Link } from "react-router";
 
 const Footer: React.FC = () => {
   return (
@@ -11,9 +12,12 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             {/* Logo and Description */}
             <div className="flex flex-col gap-3">
-              <h1 className="text-xl font-bold text-gray-800 tracking-tight">
+              <Link
+                to="/"
+                className="text-xl font-bold text-gray-800 tracking-tight"
+              >
                 Shop<span className="text-blue-600">vault</span>
-              </h1>
+              </Link>
               <p className="text-gray-400 text-sm max-w-md">
                 Your trusted online marketplace for quality products at
                 unbeatable prices. Discover thousands of items with fast

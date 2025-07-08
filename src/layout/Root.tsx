@@ -6,9 +6,9 @@ const Root: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto px-4">
+      <main className="container mx-auto px-4">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   );
