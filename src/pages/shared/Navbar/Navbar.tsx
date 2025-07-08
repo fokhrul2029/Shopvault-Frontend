@@ -1,3 +1,5 @@
+import { FaUserSecret } from "react-icons/fa";
+import { MdShoppingCart } from "react-icons/md";
 import { Link } from "react-router";
 
 const Navbar: React.FC = () => {
@@ -12,11 +14,11 @@ const Navbar: React.FC = () => {
         </Link>
 
         <ul className="flex gap-6 items-center">
-          <li className="text-gray-700 hover:text-blue-600 font-medium cursor-pointer transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-50">
-            Cart
+          <li className="text-gray-700 hover:text-blue-600 font-medium cursor-pointer transition-colors duration-200 px-3 py-2 rounded-lg bg-blue-50 hover:bg-blue-50">
+            <MdShoppingCart />
           </li>
-          <li className="text-gray-700 hover:text-blue-600 font-medium cursor-pointer transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-50">
-            User
+          <li className="text-gray-700  font-medium cursor-not-allowed px-3 py-1 rounded-lg bg-blue-50 flex items-center gap-1">
+            <FaUserSecret /> <span>Anonymous</span>
           </li>
         </ul>
       </div>
