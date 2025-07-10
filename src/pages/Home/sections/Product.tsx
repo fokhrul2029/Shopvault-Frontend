@@ -4,9 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../components/ProductCard";
 import Pending from "../../../components/Pending";
 import { addToCart } from "../../../utilities/cartUtils";
+import useProduct from "../../../hooks/useProduct";
 
 const Product: React.FC = () => {
   const axiosPublic = useAxiosPublic();
+  const { toggleActive } = useProduct();
 
   const { isPending, data } = useQuery({
     queryKey: ["product"],
@@ -16,8 +18,9 @@ const Product: React.FC = () => {
     },
   });
 
-  const handleProduct = (id: string) => {
-    const result = addToCart(`${id}`);
+  const handleProduct = (id: string, price: number, title: string) => {
+    const result = addToCart(id, price, title);
+    toggleActive();
     console.log(result.message);
   };
 
@@ -29,13 +32,15 @@ const Product: React.FC = () => {
       {isPending ? (
         <Pending />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 py-6">
           {Array.isArray(data) &&
             data?.map((product: any) => (
               <ProductCard
                 key={product._id}
                 product={product}
-                onAddToCart={(id) => handleProduct(id)}
+                onAddToCart={(id) =>
+                  handleProduct(id, product.price, product.title)
+                }
               />
             ))}
         </div>

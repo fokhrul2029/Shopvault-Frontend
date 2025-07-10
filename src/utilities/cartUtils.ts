@@ -9,7 +9,11 @@ const getCart = () => {
 };
 
 // Add a product to the cart
-const addToCart = (id: string): { success: boolean; message: string } => {
+const addToCart = (
+  id: string,
+  price: number,
+  title: string
+): { success: boolean; message: string } => {
   const cart = getCart();
   const existing = cart.find((item: any) => item.id === id);
 
@@ -18,6 +22,8 @@ const addToCart = (id: string): { success: boolean; message: string } => {
   }
   const product = {
     id: id,
+    price,
+    title,
     quantity: 1,
   };
   const updatedCart = [...cart, product];

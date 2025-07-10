@@ -3,20 +3,37 @@ import { getCart } from "../../../../utilities/cartUtils";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 import Empty from "../components/Empty";
+import useProduct from "../../../../hooks/useProduct";
 
 interface SideBarProps {
   isCartOpen: boolean;
   setIsCartOpen: (value: boolean) => void;
 }
 
+interface CartItem {
+  id: string | number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 const SideBar: React.FC<SideBarProps> = ({ isCartOpen, setIsCartOpen }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  const { isActive } = useProduct();
 
   useEffect(() => {
-    setCartItems(getCart());
-  }, [cartItems]);
+    const items: CartItem[] = getCart();
+    setCartItems(items);
 
-  console.log(cartItems);
+    // Calculate total price
+    const total = items.reduce(
+      (sum: number, item: CartItem) => sum + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(total);
+  }, [isActive]);
 
   return (
     <>
@@ -49,19 +66,20 @@ const SideBar: React.FC<SideBarProps> = ({ isCartOpen, setIsCartOpen }) => {
                 <Empty />
               ) : (
                 <div className="space-y-4">
-                  {cartItems.map((item) => (
-                    <Card key={item} item={item} />
+                  {cartItems.map((item: any, i) => (
+                    <Card key={i} item={item} />
                   ))}
                 </div>
               )}
             </div>
 
             {/* Footer with Total and Checkout */}
-            {cartItems.length > 0 && <Footer />}
+            {cartItems.length > 0 && <Footer total={totalPrice} />}
           </div>
         </div>
       )}
     </>
   );
 };
+
 export default SideBar;

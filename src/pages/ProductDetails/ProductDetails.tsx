@@ -6,10 +6,13 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Pending from "../../components/Pending";
 import Error from "../../components/Error";
 import InfoLine from "./components/InfoLine";
+import { addToCart } from "../../utilities/cartUtils";
+import useProduct from "../../hooks/useProduct";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
+  const { toggleActive } = useProduct();
 
   const { isPending, isError, data } = useQuery({
     queryKey: ["product", id],
@@ -23,6 +26,7 @@ const ProductDetails: React.FC = () => {
   if (isError) return <Error />;
 
   const {
+    _id,
     title,
     description,
     category,
@@ -37,6 +41,12 @@ const ProductDetails: React.FC = () => {
   const finalPrice = discount
     ? (price - price * (discount / 100)).toFixed(2)
     : price.toFixed(2);
+
+  const handleProduct = (id: string, price: number, title: string) => {
+    const result = addToCart(id, price, title);
+    toggleActive();
+    console.log(result.message);
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-8">
@@ -81,7 +91,7 @@ const ProductDetails: React.FC = () => {
         <InfoLine label="Sold" value={salesCount} />
 
         <button
-          onClick={() => console.log("Add to cart:", id)}
+          onClick={() => handleProduct(_id, price, title)}
           className="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition cursor-pointer"
         >
           Add to Cart
