@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import Pending from "../../../components/Pending";
 import { addToCart } from "../../../utilities/cartUtils";
 import useProduct from "../../../hooks/useProduct";
+import Swal from "sweetalert2";
 
 const Product: React.FC = () => {
   const axiosPublic = useAxiosPublic();
@@ -21,7 +22,17 @@ const Product: React.FC = () => {
   const handleProduct = (id: string, price: number, title: string) => {
     const result = addToCart(id, price, title);
     toggleActive();
-    console.log(result.message);
+    if (result.success) {
+      Swal.fire({
+        title: result.message,
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        title: result.message,
+        icon: "info",
+      });
+    }
   };
 
   return (

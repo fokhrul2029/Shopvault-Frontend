@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         </div>
         <div className="p-2">
           <h2 className="text-xs font-semibold mb-1">{title}</h2>
-          <p className="text-gray-700 text-sm mb-3 flex items-center">
+          <p className="text-gray-700 text-sm flex items-center">
             <FaBangladeshiTakaSign />
             <span>{price}</span>
           </p>

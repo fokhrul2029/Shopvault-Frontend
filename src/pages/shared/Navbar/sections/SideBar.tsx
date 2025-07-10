@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import Footer from "../components/Footer";
 import Empty from "../components/Empty";
 import useProduct from "../../../../hooks/useProduct";
+import { IoClose } from "react-icons/io5";
 
 interface SideBarProps {
   isCartOpen: boolean;
@@ -53,9 +54,9 @@ const SideBar: React.FC<SideBarProps> = ({ isCartOpen, setIsCartOpen }) => {
                 <h2 className="text-xl font-bold">Cart</h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="text-red-500 font-semibold hover:text-red-700"
+                  className="text-red-500 font-semibold hover:text-red-700 cursor-pointer"
                 >
-                  Close
+                  <IoClose />
                 </button>
               </div>
             </div>

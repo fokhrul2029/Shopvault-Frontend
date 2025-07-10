@@ -3,6 +3,7 @@ import { clearCart } from "../../../../utilities/cartUtils";
 import useProduct from "../../../../hooks/useProduct";
 import { useState } from "react";
 import CheckoutModal from "../sections/CheckoutModal";
+import Swal from "sweetalert2";
 
 interface FooterProps {
   total: number;
@@ -16,15 +17,15 @@ const Footer: React.FC<FooterProps> = ({ total }) => {
     setShowCheckout(true);
   };
 
-  const handleOrderSubmit = (orderData: {
-    name: string;
-    email: string;
-    address: string;
-  }) => {
-    console.log("Order submitted:", orderData);
+  const handleOrderSubmit = () => {
     clearCart();
     setShowCheckout(false);
     toggleActive();
+    Swal.fire({
+      title: "Checkout success!",
+      text: "Your order successfully placed.",
+      icon: "success",
+    });
   };
 
   return (

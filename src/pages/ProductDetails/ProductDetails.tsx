@@ -8,6 +8,7 @@ import Error from "../../components/Error";
 import InfoLine from "./components/InfoLine";
 import { addToCart } from "../../utilities/cartUtils";
 import useProduct from "../../hooks/useProduct";
+import Swal from "sweetalert2";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
@@ -39,13 +40,23 @@ const ProductDetails: React.FC = () => {
   } = data;
 
   const finalPrice = discount
-    ? (price - price * (discount / 100)).toFixed(2)
-    : price.toFixed(2);
+    ? (price - price * (discount / 100)).toFixed(0)
+    : price.toFixed(0);
 
   const handleProduct = (id: string, price: number, title: string) => {
     const result = addToCart(id, price, title);
     toggleActive();
-    console.log(result.message);
+    if (result.success) {
+      Swal.fire({
+        title: result.message,
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        title: result.message,
+        icon: "info",
+      });
+    }
   };
 
   return (
