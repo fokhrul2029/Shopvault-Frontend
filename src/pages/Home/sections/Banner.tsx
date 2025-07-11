@@ -1,4 +1,4 @@
-import img from "../../../assets/Blue Modern Gadget Banner.png";
+import img from "../../../assets/banner-img.png";
 
 const Banner: React.FC = () => {
   return (
